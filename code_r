@@ -1,0 +1,16 @@
+#import du fichier source
+infogreffe <- read.csv("chemin_vers_le_dossier/chiffres-cles-2014.csv", encoding="UTF-8", row.names=NULL, sep=";")
+#aperçu dans le tableur de r
+View(infogreffe)
+#aperçu des en-têtes de colonnes
+colnames(infogreffe)
+#ajout d''une colonne si le code postal débute par 63
+##chargement de la librairie stringr
+library("stringr", lib.loc="~/R/win-library/3.3")
+##recherche d''une chaine de caractère débutant par 63
+infogreffe$Est.63 <- str_detect(infogreffe$Code.postal, "^63")
+#vérification de l'ajout de la colonne
+colnames(infogreffe)
+#création d''une extraction et export pour les lignes "63"
+infogreffe63 <- infogreffe[infogreffe$Est.63 == TRUE,]
+write.csv(infogreffe63, "infogreffe63.csv")
